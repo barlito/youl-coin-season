@@ -21,18 +21,51 @@ services:
             labels:
                 - traefik.enable=true
 
-                - traefik.http.services.starter.loadbalancer.server.port=80
+                - traefik.http.services.yc_season.loadbalancer.server.port=80
 
-                - traefik.http.routers.starter.rule=Host(`yc-season.local.barlito.fr`)
-                - traefik.http.routers.starter.entrypoints=http
-                #- traefik.http.routers.starter.middlewares=tls-redirectscheme
+                - traefik.http.routers.yc_season.rule=Host(`yc-season.local.barlito.fr`)
+                - traefik.http.routers.yc_season.entrypoints=http
+                #- traefik.http.routers.yc_season.middlewares=tls-redirectscheme
 
-                - traefik.http.routers.starter-secure.rule=Host(`yc-season.local.barlito.fr`)
-                - traefik.http.routers.starter-secure.entrypoints=https
-                - traefik.http.routers.starter-secure.tls=true
+                - traefik.http.routers.yc_season-secure.rule=Host(`yc-season.local.barlito.fr`)
+                - traefik.http.routers.yc_season-secure.entrypoints=https
+                - traefik.http.routers.yc_season-secure.tls=true
         networks:
+            - yc_season_internal
             - traefik_traefik_proxy
+
+    db:
+        image: postgres:15
+        environment:
+            POSTGRES_PASSWORD: root
+        volumes:
+            - yc_season_db_data:/var/lib/postgresql/data:rw
+        networks:
+            - yc_season_internal
+
+    adminer:
+        image: adminer
+        deploy:
+            labels:
+                - traefik.enable=true
+
+                - traefik.http.services.yc-season-adminer.loadbalancer.server.port=8080
+
+                - traefik.http.routers.yc-season-adminer.rule=Host(`yc-season-adminer.local.barlito.fr`)
+                - traefik.http.routers.yc-season-adminer.entrypoints=http
+
+                - traefik.http.routers.yc-season-adminer-secure.rule=Host(`yc-season-adminer.local.barlito.fr`)
+                - traefik.http.routers.yc-season-adminer-secure.entrypoints=https
+                - traefik.http.routers.yc-season-adminer-secure.tls=true
+        networks:
+            - yc_season_internal
+            - traefik_traefik_proxy
+
+volumes:
+    yc_season_db_data:
 
 networks:
     traefik_traefik_proxy:
         external: true
+    yc_season_internal:
+        driver: overlay
