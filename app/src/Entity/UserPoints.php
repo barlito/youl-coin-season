@@ -5,44 +5,52 @@ namespace App\Entity;
 use App\Repository\UserPointsRepository;
 use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserPointsRepository::class)]
 class UserPoints
 {
     use IdUuidTrait;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $points = null;
+    private string $score;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $amountStart = null;
+    private string $amountStart;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $amountEnd = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Uuid]
     #[ORM\Column(length: 255)]
-    private ?string $walletId = null;
+    private string $walletId;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $discordUserId = null;
+    private string $discordUserId;
 
+    #[Assert\NotBlank]
+    #[Assert\Valid]
     #[ORM\ManyToOne(inversedBy: 'UserPoints')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Leaderboard $leaderboard = null;
+    private Leaderboard $leaderboard;
 
-    public function getPoints(): ?string
+    public function getScore(): string
     {
-        return $this->points;
+        return $this->score;
     }
 
-    public function setPoints(string $points): static
+    public function setScore(string $score): static
     {
-        $this->points = $points;
+        $this->score = $score;
 
         return $this;
     }
 
-    public function getAmountStart(): ?string
+    public function getAmountStart(): string
     {
         return $this->amountStart;
     }
@@ -66,7 +74,7 @@ class UserPoints
         return $this;
     }
 
-    public function getWalletId(): ?string
+    public function getWalletId(): string
     {
         return $this->walletId;
     }
@@ -78,7 +86,7 @@ class UserPoints
         return $this;
     }
 
-    public function getDiscordUserId(): ?string
+    public function getDiscordUserId(): string
     {
         return $this->discordUserId;
     }
@@ -90,12 +98,12 @@ class UserPoints
         return $this;
     }
 
-    public function getLeaderboard(): ?Leaderboard
+    public function getLeaderboard(): Leaderboard
     {
         return $this->leaderboard;
     }
 
-    public function setLeaderboard(?Leaderboard $leaderboard): static
+    public function setLeaderboard(Leaderboard $leaderboard): static
     {
         $this->leaderboard = $leaderboard;
 

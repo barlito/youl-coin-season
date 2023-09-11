@@ -7,18 +7,21 @@ use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LeaderboardRepository::class)]
 class Leaderboard
 {
     use IdUuidTrait;
 
+    #[Assert\NotBlank]
+    #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'leaderboard', targetEntity: UserPoints::class)]
     private Collection $UserPoints;
 
     #[ORM\OneToOne(inversedBy: 'leaderboard', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Season $season = null;
+    private Season $season;
 
     public function __construct()
     {
@@ -55,7 +58,7 @@ class Leaderboard
         return $this;
     }
 
-    public function getSeason(): ?Season
+    public function getSeason(): Season
     {
         return $this->season;
     }
