@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\LeaderboardRepository;
+use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,10 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: LeaderboardRepository::class)]
 class Leaderboard
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdUuidTrait;
 
     #[ORM\OneToMany(mappedBy: 'leaderboard', targetEntity: UserPoints::class)]
     private Collection $UserPoints;
@@ -25,11 +23,6 @@ class Leaderboard
     public function __construct()
     {
         $this->UserPoints = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

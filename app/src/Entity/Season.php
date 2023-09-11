@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SeasonRepository;
+use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -11,16 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: SeasonRepository::class)]
 class Season
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdUuidTrait;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $DateStart = null;
+    private ?\DateTimeInterface $dateStart = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateEnd = null;
@@ -39,11 +37,6 @@ class Season
         $this->rewards = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -58,12 +51,12 @@ class Season
 
     public function getDateStart(): ?\DateTimeInterface
     {
-        return $this->DateStart;
+        return $this->dateStart;
     }
 
-    public function setDateStart(\DateTimeInterface $DateStart): static
+    public function setDateStart(\DateTimeInterface $dateStart): static
     {
-        $this->DateStart = $DateStart;
+        $this->dateStart = $dateStart;
 
         return $this;
     }

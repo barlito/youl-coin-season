@@ -3,15 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UserPointsRepository;
+use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserPointsRepository::class)]
 class UserPoints
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdUuidTrait;
 
     #[ORM\Column(length: 255)]
     private ?string $points = null;
@@ -31,11 +29,6 @@ class UserPoints
     #[ORM\ManyToOne(inversedBy: 'UserPoints')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Leaderboard $leaderboard = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getPoints(): ?string
     {

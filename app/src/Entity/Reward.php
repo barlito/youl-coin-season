@@ -3,16 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\RewardRepository;
+use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RewardRepository::class)]
 class Reward
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdUuidTrait;
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $type = null;
@@ -29,11 +27,6 @@ class Reward
     #[ORM\ManyToOne(inversedBy: 'rewards')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Season $season = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getType(): ?int
     {

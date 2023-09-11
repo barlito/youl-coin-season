@@ -7,6 +7,7 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "barlito/utils": "^1.1",
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.16",
@@ -70,5 +71,11 @@
         "symfony/maker-bundle": "^1.50",
         "symfony/stopwatch": "6.3.*",
         "symfony/web-profiler-bundle": "6.3.*"
+    },
+    "repositories": {
+        "barlito/utils": {
+            "type": "vcs",
+            "url": "https://github.com/barlito/utils"
+        }
     }
 }

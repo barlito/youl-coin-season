@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfa505a2463cf68d8ceeb2de46ce8d53",
+    "content-hash": "ff301df3ea47fc5491f84d785ee7a53c",
     "packages": [
+        {
+            "name": "barlito/utils",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barlito/utils.git",
+                "reference": "6350ee3860d3f49041fe5d7527dad5693cd244fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barlito/utils/zipball/6350ee3860d3f49041fe5d7527dad5693cd244fc",
+                "reference": "6350ee3860d3f49041fe5d7527dad5693cd244fc",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.16",
+                "php": ">=8.0.2",
+                "symfony/doctrine-bridge": "^6.3",
+                "symfony/serializer": "^6.3",
+                "symfony/validator": "^6.3"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "Barlito\\Utils\\": "src/"
+                }
+            },
+            "license": [
+                "mit"
+            ],
+            "authors": [
+                {
+                    "name": "barlito",
+                    "email": "axelbarlet16@gmail.com",
+                    "homepage": "https://github.com/barlito"
+                }
+            ],
+            "description": "My personal library of utilities",
+            "support": {
+                "source": "https://github.com/barlito/utils/tree/v1.1.1",
+                "issues": "https://github.com/barlito/utils/issues"
+            },
+            "time": "2023-09-11T18:58:31+00:00"
+        },
         {
             "name": "doctrine/cache",
             "version": "2.2.0",
@@ -4717,6 +4761,100 @@
                 }
             ],
             "time": "2023-08-25T19:43:09+00:00"
+        },
+        {
+            "name": "symfony/serializer",
+            "version": "v6.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/serializer.git",
+                "reference": "96d28a58d5a128bf77c54534b380eb7c92c8f846"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/96d28a58d5a128bf77c54534b380eb7c92c8f846",
+                "reference": "96d28a58d5a128bf77c54534b380eb7c92c8f846",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/deprecation-contracts": "^2.5|^3",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "conflict": {
+                "doctrine/annotations": "<1.12",
+                "phpdocumentor/reflection-docblock": "<3.2.2",
+                "phpdocumentor/type-resolver": "<1.4.0",
+                "symfony/dependency-injection": "<5.4",
+                "symfony/property-access": "<5.4",
+                "symfony/property-info": "<5.4.24|>=6,<6.2.11",
+                "symfony/uid": "<5.4",
+                "symfony/yaml": "<5.4"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^1.12|^2",
+                "phpdocumentor/reflection-docblock": "^3.2|^4.0|^5.0",
+                "symfony/cache": "^5.4|^6.0",
+                "symfony/config": "^5.4|^6.0",
+                "symfony/console": "^5.4|^6.0",
+                "symfony/dependency-injection": "^5.4|^6.0",
+                "symfony/error-handler": "^5.4|^6.0",
+                "symfony/filesystem": "^5.4|^6.0",
+                "symfony/form": "^5.4|^6.0",
+                "symfony/http-foundation": "^5.4|^6.0",
+                "symfony/http-kernel": "^5.4|^6.0",
+                "symfony/mime": "^5.4|^6.0",
+                "symfony/property-access": "^5.4|^6.0",
+                "symfony/property-info": "^5.4.24|^6.2.11",
+                "symfony/uid": "^5.4|^6.0",
+                "symfony/validator": "^5.4|^6.0",
+                "symfony/var-dumper": "^5.4|^6.0",
+                "symfony/var-exporter": "^5.4|^6.0",
+                "symfony/yaml": "^5.4|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Serializer\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/serializer/tree/v6.3.4"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-08-24T14:35:28+00:00"
         },
         {
             "name": "symfony/service-contracts",
