@@ -7,4 +7,4 @@ services:
 
 networks:
     traefik_traefik_proxy: ~
-    yc_api_internal: ~
+    yc_season_internal: ~
