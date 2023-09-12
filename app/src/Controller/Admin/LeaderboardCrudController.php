@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Leaderboard;
-use App\Entity\UserPoints;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -22,16 +23,21 @@ class LeaderboardCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->showEntityActionsInlined();
+            ->showEntityActionsInlined()
+        ;
     }
 
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->disable(Action::NEW, Action::EDIT, Action::DELETE);
+            ->disable(Action::NEW, Action::EDIT, Action::DELETE)
+        ;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -42,7 +48,7 @@ class LeaderboardCrudController extends AbstractCrudController
                 ->useEntryCrudForm(UserPointsCrudController::class)
                 ->showEntryLabel()
                 ->formatValue(function ($value, $entity) {
-                    if(!$entity instanceof Leaderboard){
+                    if (!$entity instanceof Leaderboard) {
                         throw new UnexpectedTypeException($entity, Leaderboard::class);
                     }
 
@@ -52,7 +58,7 @@ class LeaderboardCrudController extends AbstractCrudController
                     });
 
                     $string = '';
-                    foreach($userPoints as $userPoint){
+                    foreach ($userPoints as $userPoint) {
                         $string .= $userPoint->getDiscordUserId() . ' : ' . $userPoint->getScore() . '<br>';
                     }
 

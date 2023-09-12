@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Enum\SeasonStatusEnum;
 use App\Repository\SeasonRepository;
 use Barlito\Utils\Traits\IdUuidTrait;
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -23,11 +24,11 @@ class Season
 
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private DateTimeInterface $dateStart;
+    private \DateTimeInterface $dateStart;
 
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private DateTimeInterface $dateEnd;
+    private \DateTimeInterface $dateEnd;
 
     #[Assert\NotBlank]
     #[Assert\Type(SeasonStatusEnum::class)]
@@ -62,24 +63,24 @@ class Season
         return $this;
     }
 
-    public function getDateStart(): DateTimeInterface
+    public function getDateStart(): \DateTimeInterface
     {
         return $this->dateStart;
     }
 
-    public function setDateStart(DateTimeInterface $dateStart): static
+    public function setDateStart(\DateTimeInterface $dateStart): static
     {
         $this->dateStart = $dateStart;
 
         return $this;
     }
 
-    public function getDateEnd(): DateTimeInterface
+    public function getDateEnd(): \DateTimeInterface
     {
         return $this->dateEnd;
     }
 
-    public function setDateEnd(DateTimeInterface $dateEnd): static
+    public function setDateEnd(\DateTimeInterface $dateEnd): static
     {
         $this->dateEnd = $dateEnd;
 

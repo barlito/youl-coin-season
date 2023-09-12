@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Enum\RankEnum;
@@ -34,7 +36,7 @@ class Reward
         constraints: [
             new Assert\Uuid(),
             new Assert\NotBlank(),
-        ]
+        ],
     )]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $externalId = null;
@@ -118,6 +120,7 @@ class Reward
     public function setRank(RankEnum $rank): Reward
     {
         $this->rank = $rank;
+
         return $this;
     }
 }

@@ -1,13 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
-use App\Entity\Leaderboard;
-use App\Entity\Reward;
 use App\Entity\Season;
-use App\Enum\RankEnum;
 use App\Enum\SeasonStatusEnum;
-use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -19,8 +17,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class SeasonCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -28,6 +28,9 @@ class SeasonCrudController extends AbstractCrudController
         return Season::class;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -52,14 +55,16 @@ class SeasonCrudController extends AbstractCrudController
     {
         return $crud
             ->setSearchFields(['name'])
-            ->showEntityActionsInlined();
+            ->showEntityActionsInlined()
+        ;
     }
 
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->disable(Action::DELETE);
+            ->disable(Action::DELETE)
+        ;
     }
 
     protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
@@ -70,7 +75,8 @@ class SeasonCrudController extends AbstractCrudController
             $url = $this->container->get(AdminUrlGenerator::class)
                 ->setAction(Action::DETAIL)
                 ->setEntityId($context->getEntity()->getPrimaryKeyValue())
-                ->generateUrl();
+                ->generateUrl()
+            ;
 
             return $this->redirect($url);
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\UserPoints;
@@ -18,6 +20,6 @@ class UserPointsCrudController extends AbstractCrudController
     {
         return $actions
             ->disable(Action::INDEX, Action::DETAIL, Action::NEW, Action::EDIT, Action::DELETE)
-            ;
+        ;
     }
 }
