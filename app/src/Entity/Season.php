@@ -41,7 +41,7 @@ class Season
 
     #[Assert\NotBlank]
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Reward::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Reward::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $rewards;
 
     public function __construct()
@@ -132,7 +132,12 @@ class Season
 
     public function removeReward(Reward $reward): static
     {
-        $this->rewards->removeElement($reward);
+        if ($this->rewards->removeElement($reward)) {
+            // set the owning side to null (unless already changed)
+            if ($reward->getSeason() === $this) {
+                $reward->setSeason(null);
+            }
+        }
 
         return $this;
     }

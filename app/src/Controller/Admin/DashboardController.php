@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Leaderboard;
+use App\Entity\Reward;
 use App\Entity\Season;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -39,7 +40,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Settings');
         yield MenuItem::linkToCrud('Seasons', 'fas fa-calendar-days', Season::class);
         yield MenuItem::linkToCrud('Leaderboards', 'fa-solid fa-ranking-star', Leaderboard::class);
-
 
         yield MenuItem::section('Extra');
         # Todo set link here

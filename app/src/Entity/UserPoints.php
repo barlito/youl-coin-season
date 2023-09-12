@@ -36,7 +36,7 @@ class UserPoints
     #[Assert\Valid]
     #[ORM\ManyToOne(inversedBy: 'UserPoints')]
     #[ORM\JoinColumn(nullable: false)]
-    private Leaderboard $leaderboard;
+    private ?Leaderboard $leaderboard;
 
     public function getScore(): string
     {
@@ -103,7 +103,7 @@ class UserPoints
         return $this->leaderboard;
     }
 
-    public function setLeaderboard(Leaderboard $leaderboard): static
+    public function setLeaderboard(?Leaderboard $leaderboard): static
     {
         $this->leaderboard = $leaderboard;
 

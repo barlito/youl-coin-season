@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\RankEnum;
 use App\Enum\RewardStatusEnum;
 use App\Enum\RewardTypeEnum;
 use App\Repository\RewardRepository;
@@ -43,6 +44,11 @@ class Reward
     #[ORM\ManyToOne(inversedBy: 'rewards')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Season $season;
+
+    #[Assert\NotBlank]
+    #[Assert\Type(RankEnum::class)]
+    #[ORM\Column]
+    private RankEnum $rank;
 
     public function getType(): RewardTypeEnum
     {
@@ -101,6 +107,17 @@ class Reward
     {
         $this->season = $season;
 
+        return $this;
+    }
+
+    public function getRank(): RankEnum
+    {
+        return $this->rank;
+    }
+
+    public function setRank(RankEnum $rank): Reward
+    {
+        $this->rank = $rank;
         return $this;
     }
 }
