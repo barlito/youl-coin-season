@@ -5,5 +5,9 @@ services:
         ports:
             - "8081:80"
 
+    db:
+        container_name: youl_coin_season_db
+
 networks:
     traefik_traefik_proxy: ~
+    yc_season_internal: ~

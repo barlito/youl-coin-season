@@ -1,55 +1,58 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\UserPointsRepository;
+use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserPointsRepository::class)]
-class UserPoints
+class UserScore
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdUuidTrait;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $points = null;
+    private string $score;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $amountStart = null;
+    private string $amountStart;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $amountEnd = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Uuid]
     #[ORM\Column(length: 255)]
-    private ?string $walletId = null;
+    private string $walletId;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $discordUserId = null;
+    private string $discordUserId;
 
-    #[ORM\ManyToOne(inversedBy: 'UserPoints')]
+    #[Assert\NotBlank]
+    #[Assert\Valid]
+    #[ORM\ManyToOne(inversedBy: 'UserScores')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Leaderboard $leaderboard = null;
+    private ?Leaderboard $leaderboard;
 
-    public function getId(): ?int
+    public function getScore(): string
     {
-        return $this->id;
+        return $this->score;
     }
 
-    public function getPoints(): ?string
+    public function setScore(string $score): static
     {
-        return $this->points;
-    }
-
-    public function setPoints(string $points): static
-    {
-        $this->points = $points;
+        $this->score = $score;
 
         return $this;
     }
 
-    public function getAmountStart(): ?string
+    public function getAmountStart(): string
     {
         return $this->amountStart;
     }
@@ -73,7 +76,7 @@ class UserPoints
         return $this;
     }
 
-    public function getWalletId(): ?string
+    public function getWalletId(): string
     {
         return $this->walletId;
     }
@@ -85,7 +88,7 @@ class UserPoints
         return $this;
     }
 
-    public function getDiscordUserId(): ?string
+    public function getDiscordUserId(): string
     {
         return $this->discordUserId;
     }
@@ -97,7 +100,7 @@ class UserPoints
         return $this;
     }
 
-    public function getLeaderboard(): ?Leaderboard
+    public function getLeaderboard(): Leaderboard
     {
         return $this->leaderboard;
     }

@@ -1,68 +1,66 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\LeaderboardRepository;
+use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LeaderboardRepository::class)]
 class Leaderboard
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdUuidTrait;
 
-    #[ORM\OneToMany(mappedBy: 'leaderboard', targetEntity: UserPoints::class)]
-    private Collection $UserPoints;
+    #[Assert\NotBlank]
+    #[Assert\Valid]
+    #[ORM\OneToMany(mappedBy: 'leaderboard', targetEntity: UserScore::class, orphanRemoval: true)]
+    private Collection $userScores;
 
-    #[ORM\OneToOne(inversedBy: 'leaderboard', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'leaderboard')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Season $season = null;
+    private Season $season;
 
     public function __construct()
     {
-        $this->UserPoints = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
+        $this->userScores = new ArrayCollection();
     }
 
     /**
-     * @return Collection<int, UserPoints>
+     * @return Collection<int, UserScore>
      */
-    public function getUserPoints(): Collection
+    public function getUserScores(): Collection
     {
-        return $this->UserPoints;
+        return $this->userScores;
     }
 
-    public function addUserPoint(UserPoints $userPoint): static
+    public function addUserScore(UserScore $userScore): static
     {
-        if (!$this->UserPoints->contains($userPoint)) {
-            $this->UserPoints->add($userPoint);
-            $userPoint->setLeaderboard($this);
+        if (!$this->userScores->contains($userScore)) {
+            $this->userScores->add($userScore);
+            $userScore->setLeaderboard($this);
         }
 
         return $this;
     }
 
-    public function removeUserPoint(UserPoints $userPoint): static
+    public function removeUserScore(UserScore $userScore): static
     {
-        if ($this->UserPoints->removeElement($userPoint)) {
+        if ($this->userScores->removeElement($userScore)) {
             // set the owning side to null (unless already changed)
-            if ($userPoint->getLeaderboard() === $this) {
-                $userPoint->setLeaderboard(null);
+            if ($userScore->getLeaderboard() === $this) {
+                $userScore->setLeaderboard(null);
             }
         }
 
         return $this;
     }
 
-    public function getSeason(): ?Season
+    public function getSeason(): Season
     {
         return $this->season;
     }

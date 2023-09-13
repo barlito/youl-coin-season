@@ -1,50 +1,57 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
+use App\Enum\SeasonStatusEnum;
 use App\Repository\SeasonRepository;
+use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SeasonRepository::class)]
 class Season
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdUuidTrait;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private string $name;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $DateStart = null;
+    private \DateTimeInterface $dateStart;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateEnd = null;
+    private \DateTimeInterface $dateEnd;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $status = null;
+    #[Assert\NotBlank]
+    #[Assert\Type(SeasonStatusEnum::class)]
+    #[ORM\Column]
+    private SeasonStatusEnum $status = SeasonStatusEnum::PENDING;
 
+    #[Assert\NotBlank]
+    #[Assert\Valid]
     #[ORM\OneToOne(mappedBy: 'season', cascade: ['persist', 'remove'])]
-    private ?Leaderboard $leaderboard = null;
+    private Leaderboard $leaderboard;
 
-    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Reward::class)]
+    #[Assert\NotBlank]
+    #[Assert\Valid]
+    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Reward::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $rewards;
 
     public function __construct()
     {
         $this->rewards = new ArrayCollection();
+        $this->setLeaderboard(new Leaderboard());
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -56,19 +63,19 @@ class Season
         return $this;
     }
 
-    public function getDateStart(): ?\DateTimeInterface
+    public function getDateStart(): \DateTimeInterface
     {
-        return $this->DateStart;
+        return $this->dateStart;
     }
 
-    public function setDateStart(\DateTimeInterface $DateStart): static
+    public function setDateStart(\DateTimeInterface $dateStart): static
     {
-        $this->DateStart = $DateStart;
+        $this->dateStart = $dateStart;
 
         return $this;
     }
 
-    public function getDateEnd(): ?\DateTimeInterface
+    public function getDateEnd(): \DateTimeInterface
     {
         return $this->dateEnd;
     }
@@ -80,29 +87,26 @@ class Season
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus(): SeasonStatusEnum
     {
         return $this->status;
     }
 
-    public function setStatus(int $status): static
+    public function setStatus(SeasonStatusEnum $status): static
     {
         $this->status = $status;
 
         return $this;
     }
 
-    public function getLeaderboard(): ?Leaderboard
+    public function getLeaderboard(): Leaderboard
     {
         return $this->leaderboard;
     }
 
     public function setLeaderboard(Leaderboard $leaderboard): static
     {
-        // set the owning side of the relation if necessary
-        if ($leaderboard->getSeason() !== $this) {
-            $leaderboard->setSeason($this);
-        }
+        $leaderboard->setSeason($this);
 
         $this->leaderboard = $leaderboard;
 
