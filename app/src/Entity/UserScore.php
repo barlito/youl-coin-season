@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserPointsRepository::class)]
-class UserPoints
+class UserScore
 {
     use IdUuidTrait;
 
@@ -36,7 +36,7 @@ class UserPoints
 
     #[Assert\NotBlank]
     #[Assert\Valid]
-    #[ORM\ManyToOne(inversedBy: 'UserPoints')]
+    #[ORM\ManyToOne(inversedBy: 'UserScores')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Leaderboard $leaderboard;
 

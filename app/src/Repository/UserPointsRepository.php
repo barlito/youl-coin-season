@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\UserPoints;
+use App\Entity\UserScore;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<UserPoints>
+ * @extends ServiceEntityRepository<UserScore>
  *
- * @method UserPoints|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserPoints|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserPoints[]    findAll()
- * @method UserPoints[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method UserScore|null find($id, $lockMode = null, $lockVersion = null)
+ * @method UserScore|null findOneBy(array $criteria, array $orderBy = null)
+ * @method UserScore[]    findAll()
+ * @method UserScore[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class UserPointsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserPoints::class);
+        parent::__construct($registry, UserScore::class);
     }
 
     //    /**

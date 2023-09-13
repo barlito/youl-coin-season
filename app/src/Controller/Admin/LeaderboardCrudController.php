@@ -41,18 +41,18 @@ class LeaderboardCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            CollectionField::new('userPoints')
+            CollectionField::new('userScores')
                 ->renderExpanded()
                 ->setEntryIsComplex()
                 ->showEntryLabel()
-                ->useEntryCrudForm(UserPointsCrudController::class)
+                ->useEntryCrudForm(UserScoreCrudController::class)
                 ->showEntryLabel()
                 ->formatValue(function ($value, $entity) {
                     if (!$entity instanceof Leaderboard) {
                         throw new UnexpectedTypeException($entity, Leaderboard::class);
                     }
 
-                    $userPoints = $entity->getUserPoints()->getIterator();
+                    $userPoints = $entity->getUserScores()->getIterator();
                     $userPoints->uasort(function ($a, $b) {
                         return $a->getScore() <=> $b->getScore();
                     });

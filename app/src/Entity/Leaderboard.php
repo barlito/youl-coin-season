@@ -18,8 +18,8 @@ class Leaderboard
 
     #[Assert\NotBlank]
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'leaderboard', targetEntity: UserPoints::class, orphanRemoval: true)]
-    private Collection $userPoints;
+    #[ORM\OneToMany(mappedBy: 'leaderboard', targetEntity: UserScore::class, orphanRemoval: true)]
+    private Collection $userScores;
 
     #[ORM\OneToOne(inversedBy: 'leaderboard')]
     #[ORM\JoinColumn(nullable: false)]
@@ -27,33 +27,33 @@ class Leaderboard
 
     public function __construct()
     {
-        $this->userPoints = new ArrayCollection();
+        $this->userScores = new ArrayCollection();
     }
 
     /**
-     * @return Collection<int, UserPoints>
+     * @return Collection<int, UserScore>
      */
-    public function getUserPoints(): Collection
+    public function getUserScores(): Collection
     {
-        return $this->userPoints;
+        return $this->userScores;
     }
 
-    public function addUserPoint(UserPoints $userPoint): static
+    public function addUserScore(UserScore $userScore): static
     {
-        if (!$this->userPoints->contains($userPoint)) {
-            $this->userPoints->add($userPoint);
-            $userPoint->setLeaderboard($this);
+        if (!$this->userScores->contains($userScore)) {
+            $this->userScores->add($userScore);
+            $userScore->setLeaderboard($this);
         }
 
         return $this;
     }
 
-    public function removeUserPoint(UserPoints $userPoint): static
+    public function removeUserScore(UserScore $userScore): static
     {
-        if ($this->userPoints->removeElement($userPoint)) {
+        if ($this->userScores->removeElement($userScore)) {
             // set the owning side to null (unless already changed)
-            if ($userPoint->getLeaderboard() === $this) {
-                $userPoint->setLeaderboard(null);
+            if ($userScore->getLeaderboard() === $this) {
+                $userScore->setLeaderboard(null);
             }
         }
 

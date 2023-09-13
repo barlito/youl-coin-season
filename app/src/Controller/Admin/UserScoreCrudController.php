@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\UserPoints;
+use App\Entity\UserScore;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class UserPointsCrudController extends AbstractCrudController
+class UserScoreCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return UserPoints::class;
+        return UserScore::class;
     }
 
     public function configureActions(Actions $actions): Actions
