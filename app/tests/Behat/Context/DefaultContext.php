@@ -24,7 +24,7 @@ final class DefaultContext implements Context
      */
     public static function prepareFixtures(): void
     {
-//        system('bin/console hautelook:fixtures:load -n --env="test"');
+        //        system('bin/console hautelook:fixtures:load -n --env="test"');
     }
 
     /**
