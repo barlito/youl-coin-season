@@ -75,7 +75,7 @@
         "friendsofphp/php-cs-fixer": "^3.26",
         "hautelook/alice-bundle": "^2.12",
         "phpmd/phpmd": "^2.13",
-        "phpunit/phpunit": "^10.3",
+        "phpunit/phpunit": "^9",
         "squizlabs/php_codesniffer": "^3.7",
         "symfony/browser-kit": "6.3.*",
         "symfony/css-selector": "6.3.*",

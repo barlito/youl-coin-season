@@ -27,6 +27,7 @@ class Season
     private \DateTimeInterface $dateStart;
 
     #[Assert\NotBlank]
+    #[Assert\GreaterThan(propertyPath: 'dateStart', message: 'The end date must be greater than the start date')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $dateEnd;
 
