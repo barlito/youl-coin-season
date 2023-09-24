@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Season;
+use App\Enum\SeasonStatusEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,28 +24,34 @@ class SeasonRepository extends ServiceEntityRepository
         parent::__construct($registry, Season::class);
     }
 
-    //    /**
-    //     * @return Season[] Returns an array of Season objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @return Season[]
+     */
+    public function findActivableSeasons(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.status = :status')
+            ->andWhere('s.dateStart <= :date')
+            ->setParameters([
+                'status' => SeasonStatusEnum::CREATED,
+                'date' => new \DateTime(),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
-    //    public function findOneBySomeField($value): ?Season
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findFinishedSeasons()
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.status = :status')
+            ->andWhere('s.dateEnd <= :date')
+            ->setParameters([
+                'status' => SeasonStatusEnum::ACTIVE,
+                'date' => new \DateTime(),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

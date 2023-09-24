@@ -1,2 +1,21 @@
 framework:
-    workflows: null
+    workflows:
+        season:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'statusAsString'
+            supports:
+                - App\Entity\Season
+            places:
+                - created
+                - active
+                - finished
+            transitions:
+                activate:
+                    from: created
+                    to: active
+                finish:
+                    from: active
+                    to: finished
+

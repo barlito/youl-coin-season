@@ -3,6 +3,8 @@ default:
         default:
             contexts:
                 - App\Tests\Behat\Context\DefaultContext
+                - App\Tests\Behat\Context\EntityManagerContext
+                - Barlito\Utils\Behat\Component\EntityManagerContext
 
 #    extensions:
 #        FriendsOfBehat\SymfonyExtension:

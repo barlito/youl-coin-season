@@ -6,7 +6,7 @@ namespace App\Enum;
 
 enum SeasonStatusEnum: string
 {
-    case PENDING = 'pending';
+    case CREATED = 'created';
 
     case ACTIVE = 'active';
 
