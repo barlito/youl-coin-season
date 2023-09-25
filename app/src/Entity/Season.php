@@ -34,7 +34,7 @@ class Season
     #[Assert\NotBlank]
     #[Assert\Type(SeasonStatusEnum::class)]
     #[ORM\Column]
-    private SeasonStatusEnum $status = SeasonStatusEnum::PENDING;
+    private SeasonStatusEnum $status = SeasonStatusEnum::CREATED;
 
     #[Assert\NotBlank]
     #[Assert\Valid]
@@ -96,6 +96,18 @@ class Season
     public function setStatus(SeasonStatusEnum $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getStatusAsString(): string
+    {
+        return $this->status->value;
+    }
+
+    public function setStatusAsString(string $status): static
+    {
+        $this->status = SeasonStatusEnum::from($status);
 
         return $this;
     }

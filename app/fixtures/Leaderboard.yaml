@@ -1,0 +1,7 @@
+# fixtures/Leaderboard.yaml
+App\Entity\Leaderboard:
+    leaderboard_season_to_activate:
+        season: '@season_to_activate'
+
+    leaderboard_season_to_finish:
+        season: '@season_to_finish'

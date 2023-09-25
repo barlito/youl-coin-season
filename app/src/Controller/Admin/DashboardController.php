@@ -46,6 +46,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Extra');
         // Todo set link here
         yield MenuItem::linkToUrl('YTCG - Admin', 'fa-brands fa-wizards-of-the-coast', 'https://google.com');
+        yield MenuItem::linkToUrl('YC Exchange - Admin', 'fas fa-wallet', '');
     }
 
     public function configureCrud(): Crud

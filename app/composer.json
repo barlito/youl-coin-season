@@ -19,6 +19,7 @@
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.3.*",
         "symfony/runtime": "6.3.*",
+        "symfony/workflow": "6.3.*",
         "symfony/yaml": "6.3.*",
         "wohali/oauth2-discord-new": "^1.2"
     },
@@ -72,6 +73,7 @@
     },
     "require-dev": {
         "behat/behat": "^3.13",
+        "friends-of-behat/symfony-extension": "^2.4",
         "friendsofphp/php-cs-fixer": "^3.26",
         "hautelook/alice-bundle": "^2.12",
         "phpmd/phpmd": "^2.13",

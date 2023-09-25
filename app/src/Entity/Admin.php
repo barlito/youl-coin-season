@@ -13,8 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class Admin implements UserInterface
 {
     #[ORM\Id]
-    #[ORM\Column]
-    private string $id;
+    #[ORM\Column(unique: true)]
+    private string $discordId;
 
     #[ORM\Column(length: 255, unique: true)]
     private string $username;
@@ -22,16 +22,16 @@ class Admin implements UserInterface
     #[ORM\Column]
     private array $roles = [];
 
-    public function setId(string $id): static
+    public function getDiscordId(): ?string
     {
-        $this->id = $id;
-
-        return $this;
+        return $this->discordId;
     }
 
-    public function getId(): string
+    public function setDiscordId(string $discordId): static
     {
-        return $this->id;
+        $this->discordId = $discordId;
+
+        return $this;
     }
 
     public function getUsername(): string

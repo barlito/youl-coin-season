@@ -1,0 +1,19 @@
+# fixtures/Season.yaml
+App\Entity\Season:
+    season_to_activate:
+        id: 965b08ce-9264-47e2-9086-00ac969bf609
+        name: 'Season to activate'
+        dateStart: <(new dateTime('-1 day'))>
+        dateEnd: <(new dateTime('+1 day'))>
+        status: !php/const App\Enum\SeasonStatusEnum::CREATED
+        leaderboard: '@leaderboard_season_to_activate'
+        rewards: []
+
+    season_to_finish:
+        id: 4abc4578-0b77-432e-8dc4-89d7fafe5f26
+        name: 'Season to finish'
+        dateStart: <(new dateTime('-2 day'))>
+        dateEnd: <(new dateTime('-1 day'))>
+        status: !php/const App\Enum\SeasonStatusEnum::ACTIVE
+        leaderboard: '@leaderboard_season_to_finish'
+        rewards: []
