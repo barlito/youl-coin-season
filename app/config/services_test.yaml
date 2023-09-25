@@ -7,13 +7,12 @@ services:
     App\Tests\Behat\:
         resource: '../tests/Behat/*'
 
-    App\Tests\Functional\:
-        resource: '../tests/Functional/*'
-
-    App\Tests\Unit\:
-        resource: '../tests/Unit/*'
+#    App\Tests\Functional\:
+#        resource: '../tests/Functional/*'
+#
+#    App\Tests\Unit\:
+#        resource: '../tests/Unit/*'
 
     # Services
-
-    App\Tests\Behat\EntityManagerContext:
+    App\Tests\Behat\Context\EntityManagerContext:
         $entityNamespace: App\Entity
