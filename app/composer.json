@@ -13,6 +13,7 @@
         "doctrine/orm": "^2.16",
         "easycorp/easyadmin-bundle": "^4.7",
         "knpuniversity/oauth2-client-bundle": "^2.15",
+        "symfony/amqp-messenger": "6.3.*",
         "symfony/console": "6.3.*",
         "symfony/dotenv": "6.3.*",
         "symfony/expression-language": "6.3.*",
