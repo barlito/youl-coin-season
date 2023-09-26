@@ -35,6 +35,8 @@ class TransactionNotificationSerializer implements MessengerSerializerInterface
     }
 
     /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @throws ExceptionInterface
      */
     public function encode(Envelope $envelope): array

@@ -11,9 +11,11 @@ Feature:
 
         When I run the command "app:season:finish"
 
-        Given command out should contain "Finish Season : Season to finish | 4abc4578-0b77-432e-8dc4-89d7fafe5f26"
+        Then the command should be successful
 
-        Given a "Season" entity found by "id=4abc4578-0b77-432e-8dc4-89d7fafe5f26" should match:
+        And command output should contain "Finish Season : Season to finish | 4abc4578-0b77-432e-8dc4-89d7fafe5f26"
+
+        And a "Season" entity found by "id=4abc4578-0b77-432e-8dc4-89d7fafe5f26" should match:
             | status | !php/enum App\Enum\SeasonStatusEnum::FINISHED |
 
 

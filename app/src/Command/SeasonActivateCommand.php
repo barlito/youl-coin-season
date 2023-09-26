@@ -12,6 +12,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Workflow\WorkflowInterface;
 
 #[AsCommand(
@@ -22,6 +23,7 @@ class SeasonActivateCommand extends Command
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
+        private readonly ValidatorInterface $validator,
         private readonly SeasonRepository $seasonRepository,
         private readonly WorkflowInterface $seasonStateMachine,
     ) {
@@ -37,6 +39,16 @@ class SeasonActivateCommand extends Command
         foreach ($seasons as $season) {
             $io->info('Activate Season : ' . $season->getName() . ' | ' . $season->getId());
             $this->seasonStateMachine->apply($season, SeasonWorkflowEnum::ACTIVATE->value);
+
+            $violations = $this->validator->validate($season);
+            if ($violations->count() > 0) {
+                $io->error('Season ' . $season->getId() . ' is not valid');
+                foreach ($violations as $violation) {
+                    $io->error($violation->getMessage());
+                }
+                $this->entityManager->detach($season);
+                continue;
+            }
             $this->entityManager->persist($season);
         }
 

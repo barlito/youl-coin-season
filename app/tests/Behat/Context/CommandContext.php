@@ -12,6 +12,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 final class CommandContext extends KernelTestCase implements Context
 {
     private string $output = '';
+    private CommandTester $commandTester;
 
     /**
      * @When I run the command :command
@@ -22,19 +23,33 @@ final class CommandContext extends KernelTestCase implements Context
         $application = new Application($kernel);
         $command = $application->find($command);
 
-        $commandTester = new CommandTester($command);
-        $commandTester->execute([]);
+        $this->commandTester = new CommandTester($command);
+        $this->commandTester->execute([]);
 
-        $commandTester->assertCommandIsSuccessful();
-
-        $this->output = $commandTester->getDisplay();
+        $this->output = $this->commandTester->getDisplay();
     }
 
     /**
-     * @Given command out should contain :message
+     * @Given command output should contain :message
      */
     public function commandOutShouldContains($message)
     {
         $this->assertStringContainsString($message, $this->output);
+    }
+
+    /**
+     * @Then the command should be successful
+     */
+    public function theCommandShouldBeSuccessful()
+    {
+        $this->commandTester->assertCommandIsSuccessful();
+    }
+
+    /**
+     * @Then /^the command should be a failure$/
+     */
+    public function theCommandShouldBeAFailure()
+    {
+        $this->assertEquals(1, $this->commandTester->getStatusCode());
     }
 }
