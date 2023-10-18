@@ -4,7 +4,7 @@ framework:
         # failure_transport: failed
 
         transports:
-            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            # Keep one process since I did not put any lock to keep data integrity
             transaction_notification:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
                 serializer: App\Service\Messenger\Serializer\TransactionNotificationSerializer
