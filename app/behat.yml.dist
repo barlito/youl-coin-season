@@ -5,6 +5,7 @@ default:
                 - App\Tests\Behat\Context\DefaultContext
                 - App\Tests\Behat\Context\EntityManagerContext
                 - App\Tests\Behat\Context\CommandContext
+                - App\Tests\Behat\Context\MessengerContext
 
     extensions:
         FriendsOfBehat\SymfonyExtension:

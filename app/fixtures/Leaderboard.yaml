@@ -1,7 +1,9 @@
 # fixtures/Leaderboard.yaml
 App\Entity\Leaderboard:
     leaderboard_season_to_activate:
+        id: 9308cf83-b52c-4326-b1c1-e0e55aeb35fa
         season: '@season_to_activate'
 
     leaderboard_season_to_finish:
+        id: fdd01f6c-6f61-45c7-8fbe-cdf89579eacc
         season: '@season_to_finish'

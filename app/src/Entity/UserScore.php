@@ -16,19 +16,7 @@ class UserScore
 
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private string $score;
-
-    #[Assert\NotBlank]
-    #[ORM\Column(length: 255)]
-    private string $amountStart;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $amountEnd = null;
-
-    #[Assert\NotBlank]
-    #[Assert\Uuid]
-    #[ORM\Column(length: 255)]
-    private string $walletId;
+    private string $score = '0';
 
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
@@ -48,42 +36,6 @@ class UserScore
     public function setScore(string $score): static
     {
         $this->score = $score;
-
-        return $this;
-    }
-
-    public function getAmountStart(): string
-    {
-        return $this->amountStart;
-    }
-
-    public function setAmountStart(string $amountStart): static
-    {
-        $this->amountStart = $amountStart;
-
-        return $this;
-    }
-
-    public function getAmountEnd(): ?string
-    {
-        return $this->amountEnd;
-    }
-
-    public function setAmountEnd(?string $amountEnd): static
-    {
-        $this->amountEnd = $amountEnd;
-
-        return $this;
-    }
-
-    public function getWalletId(): string
-    {
-        return $this->walletId;
-    }
-
-    public function setWalletId(string $walletId): static
-    {
-        $this->walletId = $walletId;
 
         return $this;
     }
