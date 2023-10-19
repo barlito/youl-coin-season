@@ -1,0 +1,27 @@
+framework:
+    messenger:
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        # failure_transport: failed
+
+        transports:
+            # Keep one process since I did not put any lock to keep data integrity
+            transaction_notification:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                serializer: App\Service\Messenger\Serializer\TransactionNotificationSerializer
+                options:
+                    persistent: true
+                    exchange:
+                        name: transaction_notification_exchange
+                    queues:
+                        transaction_notification_season: ~
+
+        routing:
+            # Route your messages to the transports
+            # 'App\Message\YourMessage': async
+
+when@test:
+    framework:
+        messenger:
+            transports:
+                transaction_notification:
+                    dsn: 'in-memory://?serialize=true'

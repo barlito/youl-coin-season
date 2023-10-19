@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Behat\Context;
 
+use App\Entity\Season;
+use App\Enum\SeasonStatusEnum;
 use Behat\Behat\Context\Context;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * This context class contains the definitions of the steps used by the demo
@@ -14,6 +17,10 @@ use Behat\Behat\Context\Context;
  */
 final class DefaultContext implements Context
 {
+    public function __construct(private readonly EntityManagerInterface $entityManager)
+    {
+    }
+
     /**
      * Ensure to fully reset the test database fixtures features, allowing easy knowledge of the current
      * database state at the beginning of each features
@@ -35,5 +42,22 @@ final class DefaultContext implements Context
     public static function clearCachePool(): void
     {
         system('bin/console cache:pool:clear cache.app --env="test"');
+    }
+
+    /**
+     * @Given /^I finish all active Seasons$/
+     */
+    public function iFinishAllActiveSeasons()
+    {
+        $seasonRepository = $this->entityManager->getRepository(Season::class);
+
+        $seasons = $seasonRepository->findBy(['status' => SeasonStatusEnum::ACTIVE]);
+
+        array_map(function (Season $season) {
+            $season->setStatus(SeasonStatusEnum::FINISHED);
+            $this->entityManager->persist($season);
+        }, $seasons);
+
+        $this->entityManager->flush();
     }
 }

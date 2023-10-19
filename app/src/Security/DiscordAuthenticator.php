@@ -65,7 +65,7 @@ class DiscordAuthenticator extends OAuth2Authenticator implements Authentication
                 }
 
                 $user = (new Admin())
-                    ->setId($discordUser->getId())
+                    ->setDiscordId($discordUser->getId())
                     ->setUsername($discordUser->getUsername())
                     ->setRoles([AdminRoleEnum::ROLE_ADMIN->value])
                 ;

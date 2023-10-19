@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Enum\SeasonStatusEnum;
 use App\Repository\SeasonRepository;
+use App\Validator as CustomAssert;
 use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,7 +14,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[ORM\UniqueConstraint(name: 'season_unique_active', fields: ['status'], options: ['where' => "((status)::text = '" . SeasonStatusEnum::ACTIVE->value . "'::text)"])]
 #[ORM\Entity(repositoryClass: SeasonRepository::class)]
+#[CustomAssert\Entity\Season\SeasonStatus]
 class Season
 {
     use IdUuidTrait;
