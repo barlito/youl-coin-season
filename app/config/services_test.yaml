@@ -7,6 +7,9 @@ services:
     App\Tests\Behat\:
         resource: '../tests/Behat/*'
 
+    Barlito\Utils\Behat\:
+        resource: '../vendor/barlito/utils/src/Behat/*'
+
 #    App\Tests\Functional\:
 #        resource: '../tests/Functional/*'
 #
@@ -14,5 +17,10 @@ services:
 #        resource: '../tests/Unit/*'
 
     # Services
-    App\Tests\Behat\Context\EntityManagerContext:
+    Barlito\Utils\Behat\Component\EntityManagerContext:
         $entityNamespace: App\Entity
+
+    Barlito\Utils\Behat\Mock\LoggerMock:
+        decorates: Psr\Log\LoggerInterface
+        arguments:
+            - '@Barlito\Utils\Behat\Mock\LoggerMock.inner'

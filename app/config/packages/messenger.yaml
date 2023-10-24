@@ -30,3 +30,6 @@ when@test:
             transports:
                 transaction_notification:
                     dsn: 'in-memory://?serialize=true'
+                    retry_strategy:
+                        max_retries: 0
+                    failure_transport: failed
