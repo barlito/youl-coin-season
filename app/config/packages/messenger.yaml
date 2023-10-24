@@ -14,6 +14,11 @@ framework:
                         name: transaction_notification_exchange
                     queues:
                         transaction_notification_season: ~
+                retry_strategy:
+                    max_retries: 0
+                failure_transport: failed
+
+            failed: 'doctrine://default?queue_name=failed'
 
         routing:
             # Route your messages to the transports
