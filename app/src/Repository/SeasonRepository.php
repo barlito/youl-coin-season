@@ -7,6 +7,7 @@ namespace App\Repository;
 use App\Entity\Season;
 use App\Enum\SeasonStatusEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -25,9 +26,9 @@ class SeasonRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Season[]
+     * @throws NonUniqueResultException
      */
-    public function findActivableSeasons(): array
+    public function findActivableSeasons(): ?Season
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.status = :status')
@@ -37,11 +38,14 @@ class SeasonRepository extends ServiceEntityRepository
                 'date' => new \DateTime(),
             ])
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
 
-    public function findFinishedSeasons()
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findFinishedSeasons(): ?Season
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.status = :status')
@@ -51,7 +55,7 @@ class SeasonRepository extends ServiceEntityRepository
                 'date' => new \DateTime(),
             ])
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
 }

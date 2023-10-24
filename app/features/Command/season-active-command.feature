@@ -4,6 +4,7 @@ Feature:
     I want to test my command to activate Seasons
 
     Scenario: I want to test that a Season can't be activated is another is already active
+        Given I reload the fixtures
 
         Given a "Season" entity found by "id=965b08ce-9264-47e2-9086-00ac969bf609" should match:
             | name   | Season to activate                           |
@@ -23,9 +24,7 @@ Feature:
         And a "Season" entity found by "id=965b08ce-9264-47e2-9086-00ac969bf609" should match:
             | status | !php/enum App\Enum\SeasonStatusEnum::CREATED |
 
-
     Scenario: Update Seasons test with and passed endDate and in Active status
-
         Given I reload the fixtures
 
         And I finish all active Seasons
