@@ -14,15 +14,24 @@ use App\Repository\SeasonRepository;
 use App\Repository\UserPointsRepository;
 use App\Service\Handler\Abstraction\AbstractHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[AsMessageHandler]
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class TransactionNotificationMessageHandler extends AbstractHandler
 {
     public function __construct(
         private readonly SeasonRepository $seasonRepository,
         private readonly UserPointsRepository $userPointsRepository,
+        private readonly LoggerInterface $logger,
+        private readonly SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
         ValidatorInterface $validator,
     ) {
@@ -31,7 +40,7 @@ class TransactionNotificationMessageHandler extends AbstractHandler
 
     public function __invoke(TransactionDTO $transactionNotificationMessage): void
     {
-        $this->validate($transactionNotificationMessage);
+        $this->validateMessage($transactionNotificationMessage);
 
         $season = $this->seasonRepository->findOneBy(['status' => SeasonStatusEnum::ACTIVE]);
         if (!$season instanceof Season) {
@@ -82,5 +91,22 @@ class TransactionNotificationMessageHandler extends AbstractHandler
         $userScore->setScore(bcadd($userScore->getScore(), $transactionAmount));
 
         $this->entityManager->persist($userScore);
+    }
+
+    private function validateMessage(TransactionDTO $transactionNotificationMessage): void
+    {
+        try {
+            $this->validate($transactionNotificationMessage);
+        } catch (ConstraintDefinitionException $exception) {
+            $this->logger->critical(
+                $exception->getMessage(),
+                [
+                    'exception' => $exception->getMessage(),
+                    'message' => $this->serializer->serialize($transactionNotificationMessage, 'json'),
+                ],
+            );
+
+            throw new UnrecoverableMessageHandlingException($exception->getMessage());
+        }
     }
 }

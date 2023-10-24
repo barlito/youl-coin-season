@@ -3,9 +3,10 @@ default:
         default:
             contexts:
                 - App\Tests\Behat\Context\DefaultContext
-                - App\Tests\Behat\Context\EntityManagerContext
                 - App\Tests\Behat\Context\CommandContext
                 - App\Tests\Behat\Context\MessengerContext
+                - Barlito\Utils\Behat\Component\LoggerContext
+                - Barlito\Utils\Behat\Component\EntityManagerContext
 
     extensions:
         FriendsOfBehat\SymfonyExtension:
