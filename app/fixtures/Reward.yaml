@@ -1,0 +1,8 @@
+# fixtures/Leaderboard.yaml
+App\Entity\Reward:
+    reward_youl_coin:
+        id: 26fa7a1d-7277-4047-836a-a73f6650ec97
+        type: !php/const App\Enum\RewardTypeEnum::YOUL_COIN
+        amount: 1000
+        status: !php/const App\Enum\RewardStatusEnum::UNCLAIMED
+        rank: !php/const App\Enum\RankEnum::FIRST

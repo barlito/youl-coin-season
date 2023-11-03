@@ -16,4 +16,6 @@ App\Entity\Season:
         dateEnd: <(new dateTime('-1 day'))>
         status: !php/const App\Enum\SeasonStatusEnum::ACTIVE
         leaderboard: '@leaderboard_season_to_finish'
-        rewards: []
+        rewards: [
+            '@reward_youl_coin'
+        ]

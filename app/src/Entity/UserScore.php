@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\UserPointsRepository;
+use App\Repository\UserScoreRepository;
 use Barlito\Utils\Traits\IdUuidTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: UserPointsRepository::class)]
+#[ORM\Entity(repositoryClass: UserScoreRepository::class)]
 class UserScore
 {
     use IdUuidTrait;
@@ -27,6 +27,9 @@ class UserScore
     #[ORM\ManyToOne(inversedBy: 'UserScores')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Leaderboard $leaderboard;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $rank = null;
 
     public function getScore(): string
     {
@@ -60,6 +63,18 @@ class UserScore
     public function setLeaderboard(?Leaderboard $leaderboard): static
     {
         $this->leaderboard = $leaderboard;
+
+        return $this;
+    }
+
+    public function getRank(): ?int
+    {
+        return $this->rank;
+    }
+
+    public function setRank(?int $rank): static
+    {
+        $this->rank = $rank;
 
         return $this;
     }
