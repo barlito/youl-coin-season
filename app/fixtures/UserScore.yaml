@@ -35,3 +35,10 @@ App\Entity\UserScore:
         discordUserId: '186441663856508928'
         score: '5000'
         leaderboard: '@leaderboard_season_to_finish'
+
+    score_barlito_reward:
+        id: 863c82cb-1091-4f1d-acfa-5d6a71378387
+        discordUserId: '186441663856508928'
+        score: '5000'
+        leaderboard: '@leaderboard_finished_season'
+        rank: 1

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Reward;
-use App\Enum\RankEnum;
 use App\Enum\RewardTypeEnum;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -38,9 +37,7 @@ class RewardCrudController extends AbstractCrudController
                 ->setFormType(EnumType::class)
                 ->setFormTypeOption('class', RewardTypeEnum::class),
             'amount',
-            ChoiceField::new('rank')
-                ->setFormType(EnumType::class)
-                ->setFormTypeOption('class', RankEnum::class),
+            'rank',
             'externalId',
             TextField::new('externalId')
                 ->setHelp('externalId of the card or the booster pack'),

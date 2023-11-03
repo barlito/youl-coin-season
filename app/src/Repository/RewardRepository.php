@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Reward;
+use App\Enum\RewardStatusEnum;
+use App\Enum\SeasonStatusEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,28 +25,18 @@ class RewardRepository extends ServiceEntityRepository
         parent::__construct($registry, Reward::class);
     }
 
-    //    /**
-    //     * @return Reward[] Returns an array of Reward objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Reward
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findUnclaimedRewardsFromClosedSeasons()
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.season', 's')
+            ->andWhere('r.status = :reward_unclaimed')
+            ->andWhere('s.status = :season_finished')
+            ->setParameters([
+                'reward_unclaimed' => RewardStatusEnum::UNCLAIMED,
+                'season_finished' => SeasonStatusEnum::FINISHED,
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

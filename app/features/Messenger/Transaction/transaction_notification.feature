@@ -17,7 +17,10 @@ Feature:
         And a "Leaderboard" entity found by "season=4abc4578-0b77-432e-8dc4-89d7fafe5f26" should match:
             | id | fdd01f6c-6f61-45c7-8fbe-cdf89579eacc |
 
-        And I should find "0" "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc"
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=188967649332428800" should match:
+            | score | 10000 |
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=195659530363731968" should match:
+            | score | 1500 |
 
         When I send and consume a TransactionNotificationMessage to the queue with body:
         """
@@ -46,7 +49,10 @@ Feature:
         }
         """
 
-        Then I should find "0" "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc"
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=188967649332428800" should match:
+            | score | 10000 |
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=195659530363731968" should match:
+            | score | 1500 |
 
         And the logger logged an error containing "<message>"
 
@@ -72,7 +78,8 @@ Feature:
         And a "Leaderboard" entity found by "season=4abc4578-0b77-432e-8dc4-89d7fafe5f26" should match:
             | id | fdd01f6c-6f61-45c7-8fbe-cdf89579eacc |
 
-        And I should find "0" "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc"
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=195659530363731968" should match:
+            | score | 1500 |
 
         When I send and consume a TransactionNotificationMessage to the queue with body:
         """
@@ -98,11 +105,8 @@ Feature:
         }
         """
 
-        And I should find "1" "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc"
-
-        And a "UserScore" entity found by "discordUserId=195659530363731968" should match:
-            | score          | 3000000000                           |
-            | leaderboard.id | fdd01f6c-6f61-45c7-8fbe-cdf89579eacc |
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=195659530363731968" should match:
+            | score | 3000001500 |
 
     Scenario: I receive a correct Bank Transaction Message
     TransactionNotificationMessage should be processed
@@ -116,7 +120,8 @@ Feature:
         And a "Leaderboard" entity found by "season=4abc4578-0b77-432e-8dc4-89d7fafe5f26" should match:
             | id | fdd01f6c-6f61-45c7-8fbe-cdf89579eacc |
 
-        And I should find "0" "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc"
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=195659530363731968" should match:
+            | score | 1500 |
 
         When I send and consume a TransactionNotificationMessage to the queue with body:
         """
@@ -142,11 +147,8 @@ Feature:
         }
         """
 
-        And I should find "1" "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc"
-
-        And a "UserScore" entity found by "discordUserId=195659530363731968" should match:
-            | score          | -3000000000                          |
-            | leaderboard.id | fdd01f6c-6f61-45c7-8fbe-cdf89579eacc |
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=195659530363731968" should match:
+            | score | -2999998500 |
 
     Scenario: I receive a correct Bank Transaction Message
     TransactionNotificationMessage should be processed
@@ -160,7 +162,10 @@ Feature:
         And a "Leaderboard" entity found by "season=4abc4578-0b77-432e-8dc4-89d7fafe5f26" should match:
             | id | fdd01f6c-6f61-45c7-8fbe-cdf89579eacc |
 
-        And I should find "0" "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc"
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=189029821328785409" should match:
+            | score | 2500 |
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=195659530363731968" should match:
+            | score | 1500 |
 
         When I send and consume a TransactionNotificationMessage to the queue with body:
         """
@@ -189,12 +194,7 @@ Feature:
         }
         """
 
-        And I should find "2" "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc"
-
-        And a "UserScore" entity found by "discordUserId=189029821328785409" should match:
-            | score          | 3000000000                           |
-            | leaderboard.id | fdd01f6c-6f61-45c7-8fbe-cdf89579eacc |
-
-        And a "UserScore" entity found by "discordUserId=195659530363731968" should match:
-            | score          | -3000000000                          |
-            | leaderboard.id | fdd01f6c-6f61-45c7-8fbe-cdf89579eacc |
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=189029821328785409" should match:
+            | score | 3000002500 |
+        And a "UserScore" entity found by "leaderboard=fdd01f6c-6f61-45c7-8fbe-cdf89579eacc&discordUserId=195659530363731968" should match:
+            | score | -2999998500 |

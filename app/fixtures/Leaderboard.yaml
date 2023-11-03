@@ -7,3 +7,7 @@ App\Entity\Leaderboard:
     leaderboard_season_to_finish:
         id: fdd01f6c-6f61-45c7-8fbe-cdf89579eacc
         season: '@season_to_finish'
+
+    leaderboard_finished_season:
+        id: da01d153-5222-4805-b326-006eda974769
+        season: '@season_finished'
