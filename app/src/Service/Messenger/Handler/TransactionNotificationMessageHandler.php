@@ -11,7 +11,7 @@ use App\Entity\Season;
 use App\Entity\UserScore;
 use App\Enum\SeasonStatusEnum;
 use App\Repository\SeasonRepository;
-use App\Repository\UserPointsRepository;
+use App\Repository\UserScoreRepository;
 use App\Service\Handler\Abstraction\AbstractHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -29,7 +29,7 @@ class TransactionNotificationMessageHandler extends AbstractHandler
 {
     public function __construct(
         private readonly SeasonRepository $seasonRepository,
-        private readonly UserPointsRepository $userPointsRepository,
+        private readonly UserScoreRepository $userPointsRepository,
         private readonly LoggerInterface $logger,
         private readonly SerializerInterface $serializer,
         EntityManagerInterface $entityManager,

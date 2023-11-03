@@ -1,0 +1,37 @@
+# fixtures/Leaderboard.yaml
+App\Entity\UserScore:
+    score_barlito:
+        id: 9308cf83-b52c-4326-b1c1-e0e55aeb35fa
+        discordUserId: '188967649332428800'
+        score: '10000'
+        leaderboard: '@leaderboard_season_to_finish'
+
+    score_farf:
+        id: e8788c6f-462d-4004-a51e-5b37725c734d
+        discordUserId: '188967949963362304'
+        score: '3000'
+        leaderboard: '@leaderboard_season_to_finish'
+
+    score_veli:
+        id: 1a7d73f1-8af8-4466-840b-3f21135cab13
+        discordUserId: '189029821328785409'
+        score: '2500'
+        leaderboard: '@leaderboard_season_to_finish'
+
+    score_benj:
+        id: 5f8c17e4-9c95-4f48-b413-78a37af5b689
+        discordUserId: '232457563910832129'
+        score: '2000'
+        leaderboard: '@leaderboard_season_to_finish'
+
+    score_juju:
+        id: fe5da185-3bc6-4a44-9b64-86d59e1ccad2
+        discordUserId: '195659530363731968'
+        score: '1500'
+        leaderboard: '@leaderboard_season_to_finish'
+
+    score_warny:
+        id: 8562c20e-4a15-488f-8da0-c60e1d10068f
+        discordUserId: '186441663856508928'
+        score: '5000'
+        leaderboard: '@leaderboard_season_to_finish'

@@ -7,6 +7,7 @@ namespace App\Command;
 use App\Entity\Season;
 use App\Enum\Workflow\SeasonWorkflowEnum;
 use App\Repository\SeasonRepository;
+use App\Repository\UserScoreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -28,6 +29,7 @@ class SeasonFinishCommand extends Command
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
         private readonly SeasonRepository $seasonRepository,
+        private readonly UserScoreRepository $userScoreRepository,
         private readonly WorkflowInterface $seasonStateMachine,
     ) {
         parent::__construct('Season Finish Command');
@@ -60,6 +62,8 @@ class SeasonFinishCommand extends Command
 
         $this->entityManager->persist($season);
         $this->entityManager->flush();
+
+        $this->userScoreRepository->updateRank($season->getLeaderboard());
 
         return Command::SUCCESS;
     }
