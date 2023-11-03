@@ -7,6 +7,7 @@ namespace App\Tests\Behat\Context;
 use App\Service\Messenger\Serializer\TransactionNotificationSerializer;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -17,11 +18,21 @@ final class MessengerContext extends KernelTestCase implements Context
 {
     private readonly MessageBusInterface $messageBus;
     private readonly TransactionNotificationSerializer $transactionNotificationSerializer;
+    private readonly EntityManagerInterface $testEntityManager;
 
     public function __construct()
     {
         $this->messageBus = self::getContainer()->get(MessageBusInterface::class);
         $this->transactionNotificationSerializer = self::getContainer()->get(TransactionNotificationSerializer::class);
+        $this->testEntityManager = self::getContainer()->get(EntityManagerInterface::class);
+    }
+
+    /**
+     * @BeforeStep
+     */
+    public function beforeStep(): void
+    {
+        $this->testEntityManager->clear();
     }
 
     /**

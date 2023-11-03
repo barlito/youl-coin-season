@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Enum\RankEnum;
 use App\Enum\RewardStatusEnum;
 use App\Enum\RewardTypeEnum;
 use App\Repository\RewardRepository;
@@ -48,9 +47,8 @@ class Reward
     private ?Season $season;
 
     #[Assert\NotBlank]
-    #[Assert\Type(RankEnum::class)]
-    #[ORM\Column]
-    private RankEnum $rank;
+    #[ORM\Column(type: 'integer')]
+    private int $rank;
 
     public function getType(): RewardTypeEnum
     {
@@ -112,12 +110,12 @@ class Reward
         return $this;
     }
 
-    public function getRank(): RankEnum
+    public function getRank(): int
     {
         return $this->rank;
     }
 
-    public function setRank(RankEnum $rank): Reward
+    public function setRank(int $rank): Reward
     {
         $this->rank = $rank;
 

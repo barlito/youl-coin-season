@@ -16,6 +16,14 @@ App\Entity\Season:
         dateEnd: <(new dateTime('-1 day'))>
         status: !php/const App\Enum\SeasonStatusEnum::ACTIVE
         leaderboard: '@leaderboard_season_to_finish'
+
+    season_finished:
+        id: 7558e085-9f5e-404d-a15f-e286c24ec7e4
+        name: 'Finished Season'
+        dateStart: <(new dateTime('-20 day'))>
+        dateEnd: <(new dateTime('-10 day'))>
+        status: !php/const App\Enum\SeasonStatusEnum::FINISHED
+        leaderboard: '@leaderboard_finished_season'
         rewards: [
             '@reward_youl_coin'
         ]

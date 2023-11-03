@@ -5,4 +5,4 @@ App\Entity\Reward:
         type: !php/const App\Enum\RewardTypeEnum::YOUL_COIN
         amount: 1000
         status: !php/const App\Enum\RewardStatusEnum::UNCLAIMED
-        rank: !php/const App\Enum\RankEnum::FIRST
+        rank: 1
